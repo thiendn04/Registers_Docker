@@ -1,0 +1,15 @@
+{
+  "name": "registers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "registry": "http://192.168.225.102:8081/repository/npm-private/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
