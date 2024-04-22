@@ -24,10 +24,10 @@ RUN cp -a build/. /var/www/{{ http_host }}/public_html
 FROM nginx:latest
 
 # Copy tệp cấu hình Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copy các tệp từ nodejs build vào thư mục Nginx
-COPY --from=0 /var/www/webdemo/public_html /usr/share/nginx/html
+COPY --from=0 /var/www/{{ http_host }}/public_html /usr/share/nginx/html
 
 # Mở cổng 80 để truy cập ứng dụng
 EXPOSE 80
