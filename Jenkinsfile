@@ -16,6 +16,8 @@ pipeline {
 		HYPHEN = "-"
 		VERSION = "1.0.0"
 		ARTIFACT_EXTENSION = "tgz"
+        imageName = "webappdocker"
+        dockerImage = ''
 
     }      
     stages {
