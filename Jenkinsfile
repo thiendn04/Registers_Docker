@@ -34,13 +34,13 @@ pipeline {
                 }
             } 
         }
-        stage('Build') {
-            steps {
-                nodejs(nodeJSInstallationName: 'NodeJS18.16.0'){
-                sh 'npm install'
-                }                
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         nodejs(nodeJSInstallationName: 'NodeJS18.16.0'){
+        //         sh 'npm install'
+        //         }                
+        //     }
+        // }
         // stage('Code Quality Check via SonarQube') {
         //     steps {
         //         script {
@@ -59,12 +59,12 @@ pipeline {
         //    }   
 		// 	}     
 		// }
-		stage('Publish to Nexus Repository Manager') {
-            steps {
-                    sh "npm version --no-git-tag-version --allow-same-version=false --prefix ./ $version-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
-                    sh 'npm publish'
-            }
-		}
+		// stage('Publish to Nexus Repository Manager') {
+        //     steps {
+        //             sh "npm version --no-git-tag-version --allow-same-version=false --prefix ./ $version-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
+        //             sh 'npm publish'
+        //     }
+		// }
 		
 		// stage('Deploy to Staging-Ansible'){
 		//     steps {
