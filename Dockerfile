@@ -12,7 +12,6 @@ WORKDIR /app/server
 COPY server/package*.json ./
 RUN npm install
 COPY server/ .
-RUN npm run build
 
 # Stage 3: Combine client and server into final image
 FROM node:18.16.0
