@@ -18,6 +18,8 @@ pipeline {
 		ARTIFACT_EXTENSION = "tgz"
         imageName = "webappdocker"
         dockerImage = ''
+        registryCredentials = "nexus_login_credential"
+        registry = "http://192.168.225.102:8081/repository/npm-docker-hosted/"
 
     }      
     stages {
@@ -42,7 +44,17 @@ pipeline {
                     dockerImage = docker.build imageName
                 }
             }
-        }        
+        }
+        // Uploading Docker images into Nexus Registry
+        stage('Uploading to Nexus') {
+            steps{  
+                script {
+                    docker.withRegistry( registry, registryCredentials ) {
+                    dockerImage.push('latest')
+                    }
+                }
+            }
+        }                
         // stage('Build') {
         //     steps {
         //         nodejs(nodeJSInstallationName: 'NodeJS18.16.0'){
