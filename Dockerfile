@@ -15,7 +15,7 @@ COPY server/ .
 RUN npm run build
 
 # Stage 3: Combine client and server into final image
-FROM node:node:18.16.0
+FROM node:18.16.0
 WORKDIR /app
 COPY --from=client-build /app/client/build ./client/build
 COPY --from=server-build /app/server ./server
