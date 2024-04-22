@@ -1,36 +1,24 @@
-# Sử dụng một image node.js đã có sẵn từ Docker Hub
-FROM node:18.16.0
-
-# Thiết lập thư mục làm việc
-WORKDIR /app
-
-# Copy package.json và package-lock.json (nếu có) vào thư mục /app
-COPY package*.json ./
-
-# Cài đặt các dependencies
+# Stage 1: Build the client
+FROM node:18.16.0 AS client-build
+WORKDIR /app/client
+COPY client/package*.json ./
 RUN npm install
-
-# Copy mã nguồn của ứng dụng vào thư mục /app
-COPY . .
-
-# Build ứng dụng
+COPY client/ .
 RUN npm run build
 
-# Copy các tệp từ nodejs build vào thư mục /var/www/webdemo/public_html
-RUN mkdir -p /var/www/{{ http_host }}/public_html
-RUN cp -a build/. /var/www/{{ http_host }}/public_html
+# Stage 2: Build the server
+FROM node:18.16.0 AS server-build
+WORKDIR /app/server
+COPY server/package*.json ./
+RUN npm install
+COPY server/ .
+RUN npm run build
 
-# Sử dụng image nginx làm image cơ sở tiếp theo
-FROM nginx:latest
-
-# Copy tệp cấu hình Nginx
-COPY /nginx/nginx.conf /etc/nginx/nginx.conf
-
-# Copy các tệp từ nodejs build vào thư mục Nginx
-COPY --from=0 /var/www/{{ http_host }}/public_html /usr/share/nginx/html
-
-# Mở cổng 80 để truy cập ứng dụng
-EXPOSE 80
-
-# Khởi động Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Stage 3: Combine client and server into final image
+FROM node:node:18.16.0
+WORKDIR /app
+COPY --from=client-build /app/client/build ./client/build
+COPY --from=server-build /app/server ./server
+WORKDIR /app/server
+EXPOSE 3000
+CMD ["npm", "start"]
