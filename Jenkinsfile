@@ -19,7 +19,7 @@ pipeline {
         imageName = "webappdocker"
         dockerImage = ''
         registryCredentials = "nexus_login_credential"
-        registry = "https://crelease.webapp.local"
+        registry = "crelease.webapp.local"
 
     }      
     stages {
