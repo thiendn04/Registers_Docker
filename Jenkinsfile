@@ -20,6 +20,7 @@ pipeline {
         dockerImage = ''
         registryCredentials = "nexus_login_credential"
         registry = "crelease.webapp.local:10141"
+        TAG = "$version-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
 
     }      
     stages {
@@ -50,7 +51,7 @@ pipeline {
             steps{  
                 script {
                     docker.withRegistry( 'https://'+registry, registryCredentials ) {
-                    dockerImage.push('latest')
+                    dockerImage.push("${TAG}")
                     }
                 }
             }
