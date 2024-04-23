@@ -8,13 +8,10 @@ pipeline {
      environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"    
-        NEXUS_URL = "192.168.225.102:8081"
-        NEXUSPORT = "8081"
-        ARTVERSION = "${env.BUILD_ID}"
-        ARTIFACT_NAME = "registers"
+        NEXUS_URL = "192.168.225.102"
+        NEXUS_PORT = "8081"
 		HYPHEN = "-"
 		VERSION = "1.0.0"
-		ARTIFACT_EXTENSION = "tgz"
         imageName = "webappdocker"
         dockerImage = ''
         registryCredentials = "nexus_login_credential"
@@ -129,6 +126,9 @@ pipeline {
                             extraVars: [
                                 USER: "${NEXUS_USER}",
                                 PASS: "${NEXUS_PASS}",
+                                IMAGE_TAG: "${TAG}"
+                                NEXUS_URL: "${NEXUS_URL}"
+                                NEXUS_PORT: "${NEXUS_PORT}"
                                 //reponame: "${NEXUS_REPOSITORY}",
                                 //artifactname: "${ARTIFACT_NAME}",
                                 //hyphen: "$HYPHEN",

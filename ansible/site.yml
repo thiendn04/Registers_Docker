@@ -1,4 +1,5 @@
 
 #With Nginx
-- import_playbook: install-docker.yml
+# - import_playbook: install-docker.yml
+- import_playbook: deploy-docker-image.yml
 #- import_playbook: registers-nginx-update.yml            #chỉ upcode mới

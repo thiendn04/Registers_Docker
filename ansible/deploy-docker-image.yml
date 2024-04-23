@@ -1,0 +1,27 @@
+- name: Ansible Playbook to Install and Setup Apache on Ubuntu
+  hosts: stagingsrvgrp
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: Log in to Nexus Docker registry
+      docker_login:
+        registry_url: "{{ NEXUS_URL }}:{{ NEXUS_PORT }}"
+        username: "{{ NEXUS_USER }}"
+        password: "{{ NEXUS_PASS }}"
+
+    - name: Pull Docker image from Nexus
+      docker_image:
+        name: "{{ imageName }}"
+        source: pull
+        tag: "{{ TAG }}"
+
+    - name: Run Docker container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ imageName }}"
+        state: started
+        ports:
+          - "80:300"
+        volumes:
+          - "/var/www/html"
