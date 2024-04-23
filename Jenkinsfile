@@ -126,8 +126,8 @@ pipeline {
                             extraVars: [
                                 USER: "${NEXUS_USER}",
                                 PASS: "${NEXUS_PASS}",
-                                IMAGE_TAG: "${TAG}"
-                                NEXUS_URL: "${NEXUS_URL}"
+                                IMAGE_TAG: "${TAG}",
+                                NEXUS_URL: "${NEXUS_URL}",
                                 NEXUS_PORT: "${NEXUS_PORT}"
                                 //reponame: "${NEXUS_REPOSITORY}",
                                 //artifactname: "${ARTIFACT_NAME}",
