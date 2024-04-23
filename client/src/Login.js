@@ -27,7 +27,7 @@ function Login() {
             if(res.data.Status === "Success") {
                 navigate('/home');
             } else {
-                alert("No record existed");
+                alert("No record existed!");
             }
         })
         .then(err => console.log(err));
@@ -48,7 +48,7 @@ function Login() {
                     onChange={e => setValues({...values, password: e.target.value})} className='form-control rounded-0'/>
                 </div>
                 <button type='submit' className='btn btn-success w-100 rounded-0'> Log in</button>
-                <p>You are agree to a our terms and policies</p>
+                <p>You are agree to a our terms and policies !</p>
                 <Link to="/signup" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Create Account</Link>
             </form>
         </div>
