@@ -126,14 +126,14 @@ pipeline {
                             colorized: true,
                             inventory: 'inventories/staging/hosts',
                             playbook: 'ansible/site.yml',
-                            extraVars: [
-                                USER: "${NEXUS_USER}",
-                                PASS: "${NEXUS_PASS}",
-                                reponame: "${NEXUS_REPOSITORY}",
-                                artifactname: "${ARTIFACT_NAME}",
-                                hyphen: "$HYPHEN",
-                                registers_version: "${ARTIFACT_NAME}-${VERSION}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.${ARTIFACT_EXTENSION}"
-                            ],						
+                            // extraVars: [
+                            //     USER: "${NEXUS_USER}",
+                            //     PASS: "${NEXUS_PASS}",
+                            //     reponame: "${NEXUS_REPOSITORY}",
+                            //     artifactname: "${ARTIFACT_NAME}",
+                            //     hyphen: "$HYPHEN",
+                            //     registers_version: "${ARTIFACT_NAME}-${VERSION}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.${ARTIFACT_EXTENSION}"
+                            // ],						
                         )
                     }
 		        }
