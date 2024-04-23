@@ -10,7 +10,6 @@ pipeline {
         NEXUS_PROTOCOL = "http"    
         NEXUS_URL = "192.168.225.102:8081"
         NEXUSPORT = "8081"
-        NEXUS_REPOSITORY = "npm-private"
         ARTVERSION = "${env.BUILD_ID}"
         ARTIFACT_NAME = "registers"
 		HYPHEN = "-"
@@ -46,6 +45,24 @@ pipeline {
                 }
             }
         }
+        stage('Code Quality Check via SonarQube') {
+            steps {
+                script {
+                def scannerHome = tool 'SONAR-5.1.3006';
+                    withSonarQubeEnv("sonar-webapp") {
+                    sh "${tool("SONAR-5.1.3006")}/bin/sonar-scanner \
+                    -Dsonar.projectKey=Registers_Docker \
+                    -Dsonar.sources=. \
+                    -Dsonar.css.node=. \
+                    -Dsonar.host.url=http://192.168.225.101:9000 \
+                    -Dsonar.login=squ_57a5e4b1bd816a02d7144af6fb478ac8c8324bc7"
+               }
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+              waitForQualityGate abortPipeline: true
+           }   
+			}     
+		}
         // Uploading Docker images into Nexus Registry
         stage('Uploading to Nexus') {
             steps{  
@@ -56,38 +73,7 @@ pipeline {
                 }
             }
         }                
-        // stage('Build') {
-        //     steps {
-        //         nodejs(nodeJSInstallationName: 'NodeJS18.16.0'){
-        //         sh 'npm install'
-        //         }                
-        //     }
-        // }
-        // stage('Code Quality Check via SonarQube') {
-        //     steps {
-        //         script {
-        //         def scannerHome = tool 'SONAR-5.1.3006';
-        //             withSonarQubeEnv("sonar-webapp") {
-        //             sh "${tool("SONAR-5.1.3006")}/bin/sonar-scanner \
-        //             -Dsonar.projectKey=Registers \
-        //             -Dsonar.sources=. \
-        //             -Dsonar.css.node=. \
-        //             -Dsonar.host.url=http://192.168.225.101:9000 \
-        //             -Dsonar.login=squ_57a5e4b1bd816a02d7144af6fb478ac8c8324bc7"
-        //        }
-        //     }
-        //     timeout(time: 10, unit: 'MINUTES') {
-        //       waitForQualityGate abortPipeline: true
-        //    }   
-		// 	}     
-		// }
-		// stage('Publish to Nexus Repository Manager') {
-        //     steps {
-        //             sh "npm version --no-git-tag-version --allow-same-version=false --prefix ./ $version-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
-        //             sh 'npm publish'
-        //     }
-		// }
-		
+	
 		// stage('Deploy to Staging-Ansible'){
 		//     steps {
 		//         script {
