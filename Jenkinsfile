@@ -128,7 +128,8 @@ pipeline {
                                 PASS: "${NEXUS_PASS}",
                                 IMAGE_TAG: "${TAG}",
                                 NEXUS_URL: "${NEXUS_URL}",
-                                NEXUS_PORT: "${NEXUS_PORT}"
+                                NEXUS_PORT: "${NEXUS_PORT}",
+                                REGISTRY: "${registry}"
                                 //reponame: "${NEXUS_REPOSITORY}",
                                 //artifactname: "${ARTIFACT_NAME}",
                                 //hyphen: "$HYPHEN",
