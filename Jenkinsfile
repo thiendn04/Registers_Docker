@@ -74,71 +74,71 @@ pipeline {
             }
         }                
 	
-		// stage('Deploy to Staging-Ansible'){
-		//     steps {
-		//         script {
-        //             // Tạo thư mục
-        //             sh 'mkdir -p inventories'
+		stage('Deploy to Staging-Ansible'){
+		    steps {
+		        script {
+                    // Tạo thư mục
+                    sh 'mkdir -p inventories'
                     
-		// 			// Tạo thư mục con staging
-        //             sh 'mkdir -p inventories/staging'	
+					// Tạo thư mục con staging
+                    sh 'mkdir -p inventories/staging'	
 					
-		// 			// Tạo thư mục con prod
-        //             sh 'mkdir -p inventories/prod'
+					// Tạo thư mục con prod
+                    sh 'mkdir -p inventories/prod'
 					
-        //             // Tạo tệp tin host và ghi nội dung trong thư mục staging
-        //             def stag = '''
-        //                 web01 ansible_host=192.168.225.110
-        //                 db01 ansible_host=192.168.225.111
+                    // Tạo tệp tin host và ghi nội dung trong thư mục staging
+                    def stag = '''
+                        web01 ansible_host=192.168.225.110
+                        db01 ansible_host=192.168.225.111
                         
-        //                 [stagingsrvgrp]
-        //                 web01
+                        [stagingsrvgrp]
+                        web01
                         
-        //                 [dbsrvgrp]
-        //                 db01
-        //             '''.stripIndent()
-        //             // xóa khoản trắng đầu dòng vẫn giữ khoản trắng giữa các dòng
-        //             def trimmedStag = sh(script: "echo '${stag}' | sed -e 's/^[[:space:]]*//'", returnStdout: true).trim()
+                        [dbsrvgrp]
+                        db01
+                    '''.stripIndent()
+                    // xóa khoản trắng đầu dòng vẫn giữ khoản trắng giữa các dòng
+                    def trimmedStag = sh(script: "echo '${stag}' | sed -e 's/^[[:space:]]*//'", returnStdout: true).trim()
                     
-        //             sh """
-        //                 echo '${trimmedStag}' > inventories/staging/hosts
-        //             """	
+                    sh """
+                        echo '${trimmedStag}' > inventories/staging/hosts
+                    """	
 					
-        //             // Tạo tệp tin host và ghi nội dung trong thư mục prod
-        //             def pro = '''
-        //                 web02 ansible_host=192.168.225.112
+                    // Tạo tệp tin host và ghi nội dung trong thư mục prod
+                    def pro = '''
+                        web02 ansible_host=192.168.225.112
 
-        //                 [appsrvgrp]
-        //                 web02
-        //             '''.stripIndent()
+                        [appsrvgrp]
+                        web02
+                    '''.stripIndent()
                     
-        //             // xóa khoản trắng đầu dòng vẫn giữ khoản trắng giữa các dòng
-        //             def trimmedPro = sh(script: "echo '${pro}' | sed -e 's/^[[:space:]]*//'", returnStdout: true).trim()
+                    // xóa khoản trắng đầu dòng vẫn giữ khoản trắng giữa các dòng
+                    def trimmedPro = sh(script: "echo '${pro}' | sed -e 's/^[[:space:]]*//'", returnStdout: true).trim()
                     
-        //             sh """
-        //                 echo '${trimmedPro}' > inventories/prod/hosts 
-        //             """
-        //             //Lấy username password Nexus từ Jenkins Credential					
-        //             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'nexus_login_credential', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS']]){            
-        //                 ansiblePlaybook(
-        //                     credentialsId: 'weblab-staging-ssh-login',
-        //                     disableHostKeyChecking: true,
-        //                     colorized: true,
-        //                     inventory: 'inventories/staging/hosts',
-        //                     playbook: 'ansible/site.yml',
-        //                     extraVars: [
-        //                         USER: "${NEXUS_USER}",
-        //                         PASS: "${NEXUS_PASS}",
-        //                         reponame: "${NEXUS_REPOSITORY}",
-        //                         artifactname: "${ARTIFACT_NAME}",
-        //                         hyphen: "$HYPHEN",
-        //                         registers_version: "${ARTIFACT_NAME}-${VERSION}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.${ARTIFACT_EXTENSION}"
-        //                     ],						
-        //                 )
-        //             }
-		//         }
-		//     }
-		// }		
+                    sh """
+                        echo '${trimmedPro}' > inventories/prod/hosts 
+                    """
+                    //Lấy username password Nexus từ Jenkins Credential					
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'nexus_login_credential', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS']]){            
+                        ansiblePlaybook(
+                            credentialsId: 'weblab-staging-ssh-login',
+                            disableHostKeyChecking: true,
+                            colorized: true,
+                            inventory: 'inventories/staging/hosts',
+                            playbook: 'ansible/site.yml',
+                            extraVars: [
+                                USER: "${NEXUS_USER}",
+                                PASS: "${NEXUS_PASS}",
+                                reponame: "${NEXUS_REPOSITORY}",
+                                artifactname: "${ARTIFACT_NAME}",
+                                hyphen: "$HYPHEN",
+                                registers_version: "${ARTIFACT_NAME}-${VERSION}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.${ARTIFACT_EXTENSION}"
+                            ],						
+                        )
+                    }
+		        }
+		    }
+		}		
 	}
     post {
         always {

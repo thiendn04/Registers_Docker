@@ -1,13 +1,4 @@
----
-#With apache2 (Centos7)
-# - import_playbook: install-apache.yml
-# - import_playbook: registers-apache2-setup.yml
-#- import_playbook: registers-apache2-update.yml         #chỉ upcode mới
- 
-####
-#With Nginx
-- import_playbook: install-nginx.yml
-- import_playbook: mysql_setup_Ubuntu.yml
-- import_playbook: registers-nginx-setup.yml
 
+#With Nginx
+- import_playbook: install-docker.yml
 #- import_playbook: registers-nginx-update.yml            #chỉ upcode mới
