@@ -20,7 +20,7 @@ pipeline {
         dockerImage = ''
         registryCredentials = "nexus_login_credential"
         registry = "crelease.webapp.local:10141"
-        TAG = "$version-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
+        TAG = "${VERSION}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
 
     }      
     stages {
