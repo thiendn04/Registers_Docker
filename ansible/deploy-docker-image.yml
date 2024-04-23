@@ -7,8 +7,8 @@
     - name: Log in to Nexus Docker registry
       docker_login:
         registry_url: "{{ NEXUS_URL }}:{{ NEXUS_PORT }}"
-        username: "{{ NEXUS_USER }}"
-        password: "{{ NEXUS_PASS }}"
+        username: "{{ USER }}"
+        password: "{{ PASS }}"
 
     - name: Pull Docker image from Nexus
       docker_image:
