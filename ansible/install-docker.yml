@@ -88,3 +88,16 @@
       loop:
         - docker.service
         - containerd.service
+
+    - name: Tạo file /etc/docker/daemon.json
+      copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+              "insecure-registries" : ["crelease.webapp.local:10141"]
+          }
+
+    - name: Khởi động lại dịch vụ Docker
+      service:
+        name: docker
+        state: restarted
