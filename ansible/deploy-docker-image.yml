@@ -12,14 +12,14 @@
 
     - name: Pull Docker image from Nexus
       docker_image:
-        name: "{{ imageName }}"
+        name: "{{ IMAGE_NAME }}"
         source: pull
         tag: "{{ TAG }}"
 
     - name: Run Docker container
       docker_container:
-        name: "{{ container_name }}"
-        image: "{{ imageName }}"
+        name: "{{ CONTAINER_NAME }}"
+        image: "{{ IMAGE_NAME }}"
         state: started
         ports:
           - "80:300"
