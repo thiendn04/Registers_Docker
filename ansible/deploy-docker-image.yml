@@ -4,20 +4,15 @@
   become_method: sudo
   tasks:
 
-    # - name: Log in to Nexus Docker registry
-    #   docker_login:
-    #     registry_url: "{{ REGISTRY }}"
-    #     username: "{{ USER }}"
-    #     password: "{{ PASS }}"
-
-    - name: Log in to Nexus Docker registry & Pull Docker image from Nexus
-      docker_image:
-        name: "{{ IMAGE_NAME }}"
-        source: pull
-        tag: "{{ TAG }}"
+    - name: Log in to Nexus Docker registry
+      docker_login:
         registry_url: "{{ REGISTRY }}"
         username: "{{ USER }}"
         password: "{{ PASS }}"
+
+    - name: Pull Docker image from Nexus
+      docker_pull:
+        name: "{{ IMAGE_NAME }}:{{ TAG }}"
 
     - name: Run Docker container
       docker_container:
