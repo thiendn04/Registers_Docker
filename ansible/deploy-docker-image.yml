@@ -10,16 +10,12 @@
         username: "{{ USER }}"
         password: "{{ PASS }}"
 
-    - name: Pull Docker image from Nexus
-      docker_pull:
-        name: "{{ IMAGE_NAME }}:{{ TAG }}"
-
     - name: Run Docker container
       docker_container:
-        name: "{{ CONTAINER_NAME }}"
-        image: "{{ IMAGE_NAME }}"
-        state: started
+        name: register
+        image: "{{ REGISTRY }}/{{ IMAGE_NAME }}"
+        detach: yes  # Chạy container trong chế độ detach
         ports:
-          - "80:300"
-        volumes:
-          - "/var/www/html"
+          - "80:3000"  # Chuyển tiếp cổng 80 của máy host sang cổng 80 của container
+        state: started  # Chạy container
+        rm: yes  # Xóa container khi dừng
