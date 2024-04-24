@@ -13,7 +13,7 @@
     - name: Run Docker container
       docker_container:
         name: register
-        image: "{{ REGISTRY }}/{{ IMAGE_NAME }}"
+        image: "{{ REGISTRY }}/{{ IMAGE_NAME }}:{{ TAG }}"
         detach: yes  # Chạy container trong chế độ detach
         ports:
           - "80:3000"  # Chuyển tiếp cổng 80 của máy host sang cổng 80 của container
