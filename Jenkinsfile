@@ -133,7 +133,7 @@ pipeline {
                                 IMAGENAME: "${imageName}",
                                 TAG: "${TAG}",
                                 CONTAINER_NAME: "Registers",
-                                IMAGE_NAME: "imageName"
+                                IMAGE_NAME: "${imageName}"
                                 //reponame: "${NEXUS_REPOSITORY}",
                                 //artifactname: "${ARTIFACT_NAME}",
                                 //hyphen: "$HYPHEN",
