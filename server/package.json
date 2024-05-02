@@ -6,8 +6,6 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init": "npm install -g pm2",
-    "production": "pm2 start server.js --name webapp-server",
     "start": "nodemon server.js",
     "build": "react-scripts build"
   },
