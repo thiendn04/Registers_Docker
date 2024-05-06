@@ -8,5 +8,12 @@ services:
     environment:
       - MYSQL_DATABASE=signup
       - MYSQL_ROOT_PASSWORD=Khoi@8888
+    volumes:
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./mysql_data:/var/lib/mysql
     ports:
       - '3307:3306'
+volumes:
+    mysql_data:
+
+#sudo docker compose -p register-mysql up -d
