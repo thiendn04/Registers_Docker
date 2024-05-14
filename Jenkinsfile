@@ -10,17 +10,14 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.225.102"
         NEXUS_PORT = "8081"
-		HYPHEN = "-"
-		VERSION = "1.0.0"
         DOCKER_HUB = "webapp"
-        dockerImage = ''
         DOCKER_CREDENTIALS_ID = "nexus_login_credential"
         NEXUS_REPO_URL = "crelease.webapp.local:10141"
         //DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        IMAGE_TAG = '1.0.0'
+        IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
         NAME_FRONTEND = 'register-frontend'
-        DOCKER_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
+        //DOCKER_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
 
     }
     stages {
