@@ -152,14 +152,16 @@ pipeline {
                             extraVars: [
                                 USER: "${NEXUS_USER}",
                                 PASS: "${NEXUS_PASS}",
-                                IMAGE_TAG: "${TAG}",
+                                IMAGE_TAG: "${IMAGE_TAG}",
                                 NEXUS_URL: "${NEXUS_URL}",
                                 NEXUS_PORT: "${NEXUS_PORT}",
-                                REGISTRY: "${registry}",
-                                IMAGENAME: "${imageName}",
-                                TAG: "${TAG}",
-                                CONTAINER_NAME: "Registers",
-                                IMAGE_NAME: "${imageName}"
+                                NAME_BACKEND: "${NAME_BACKEND}",
+                                NAME_FRONTEND: "${NAME_FRONTEND}"
+                                // REGISTRY: "${registry}",
+                                // IMAGENAME: "${imageName}",
+                                // TAG: "${TAG}",
+                                // CONTAINER_NAME: "Registers",
+                                // IMAGE_NAME: "${imageName}"
                                 //reponame: "${NEXUS_REPOSITORY}",
                                 //artifactname: "${ARTIFACT_NAME}",
                                 //hyphen: "$HYPHEN",

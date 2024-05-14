@@ -15,12 +15,44 @@
         username: "{{ USER }}"
         password: "{{ PASS }}"
 
-    - name: Run Docker container
+
+    - name: Pull backend image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
+
+    - name: Pull frontend image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
+
+    - name: Stop and remove existing backend container
       docker_container:
-        name: register
-        image: "{{ REGISTRY }}/{{ IMAGE_NAME }}:{{ TAG }}"
-        detach: yes  # Chạy container trong chế độ detach
+        name: "{{ NAME_BACKEND }}"
+        state: absent
+        force_kill: yes
+
+    - name: Run new backend container
+      docker_container:
+        name: "{{ NAME_BACKEND }}"
+        image: "{{ NEXUS_URL }}/{{ NAME_BACKEND }}:{{ IMAGE_TAG }}"
+        state: started
         ports:
-          - "80:3000"  # Chuyển tiếp cổng 80 của máy host sang cổng 80 của container
-        state: started  # Chạy container
+          - "8081:8081"
+
+    - name: Stop and remove existing frontend container
+      docker_container:
+        name: "{{ NAME_FRONTEND }}"
+        state: absent
+        force_kill: yes
+
+    - name: Run new frontend container
+      docker_container:
+        name: "{{ NAME_FRONTEND }}"
+        image: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}:{{ IMAGE_TAG }}"
+        state: started
+        ports:
+          - "80:80"
 
