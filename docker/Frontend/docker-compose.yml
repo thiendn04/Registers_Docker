@@ -8,4 +8,5 @@ services:
     volumes:
       - ../../client/build:/usr/share/nginx/html
       - ./default.conf:/etc/nginx/conf.d/default.conf
+    restart: always
     # docker compose -p registers up -d
