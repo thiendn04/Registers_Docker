@@ -156,8 +156,8 @@ pipeline {
                                 NEXUS_URL: "${NEXUS_URL}",
                                 NEXUS_PORT: "${NEXUS_PORT}",
                                 NAME_BACKEND: "${NAME_BACKEND}",
-                                NAME_FRONTEND: "${NAME_FRONTEND}"
-                                // REGISTRY: "${registry}",
+                                NAME_FRONTEND: "${NAME_FRONTEND}",
+                                REGISTRY: "${NEXUS_REPO_URL}"
                                 // IMAGENAME: "${imageName}",
                                 // TAG: "${TAG}",
                                 // CONTAINER_NAME: "Registers",
