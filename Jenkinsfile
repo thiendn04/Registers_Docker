@@ -59,26 +59,24 @@ pipeline {
 			}
 		}
 
-        stages {
-            stage('Build and Push Images') {
-                steps {
-                    script {
-                        // Login to Docker registry
-                        withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $NEXUS_REPO_URL"
-                        }
-                        
-                        // Build images using Docker Compose
-                        sh 'docker compose build --parallel'
-                        
-                        // Tag and push Backend image
-                        sh "docker tag ${NAME_BACKEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
-                        sh "docker push ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
-                        
-                        // Tag and push Frontend image
-                        sh "docker tag ${NAME_FRONTEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
-                        sh "docker push ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
+        stage('Build and Push Images') {
+            steps {
+                script {
+                    // Login to Docker registry
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $NEXUS_REPO_URL"
                     }
+                    
+                    // Build images using Docker Compose
+                    sh 'docker compose build --parallel'
+                    
+                    // Tag and push Backend image
+                    sh "docker tag ${NAME_BACKEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
+                    sh "docker push ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
+                    
+                    // Tag and push Frontend image
+                    sh "docker tag ${NAME_FRONTEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
+                    sh "docker push ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
                 }
             }
         }
