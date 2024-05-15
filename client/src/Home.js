@@ -33,7 +33,7 @@ function Home() {
             {
                 auth ?
                 <div>
-                    <h3>Chúc mừng {name} đã đăng nhập thành công!</h3>
+                    <h3>Chúc mừng <b><i><u>{name}</u></i></b> đã đăng nhập thành công!</h3>
                     <button className='btn btn-danger' onClick={handleDelete}>Logout</button>
                 </div>
                 :

@@ -38,20 +38,29 @@
         state: absent
         force_kill: yes
 
+    - name: Get all images with repository registers-backend
+      command: docker images --format "{{ '{{.Repository}}:{{.Tag}}' }}" "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
+      register: rmi_images_backend
+
+    - name: Remove images with repository registers-backend
+      command: docker rmi "{{ item }}"
+      loop: "{{ rmi_images_backend.stdout_lines }}"
+      when: rmi_images_backend.stdout_lines is defined and rmi_images_backend.stdout_lines | length > 0
+
     - name: Stop and remove existing frontend container
       docker_container:
         name: "{{ NAME_FRONTEND }}"
         state: absent
         force_kill: yes
 
-    - name: Get all images with repository registers-backend
-      command: docker images --format "{{ '{{.Repository}}:{{.Tag}}' }}" "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
-      register: images_to_remove
+    - name: Get all images with repository registers-frontkend
+      command: docker images --format "{{ '{{.Repository}}:{{.Tag}}' }}" "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}"
+      register: rmi_images_frontend
 
     - name: Remove images with repository registers-backend
       command: docker rmi "{{ item }}"
-      loop: "{{ images_to_remove.stdout_lines }}"
-      when: images_to_remove.stdout_lines is defined and images_to_remove.stdout_lines | length > 0
+      loop: "{{ rmi_images_frontend.stdout_lines }}"
+      when: rmi_images_frontend.stdout_lines is defined and rmi_images_frontend.stdout_lines | length > 0
 
     - name: Pull backend image from Nexus Repository
       docker_image:
