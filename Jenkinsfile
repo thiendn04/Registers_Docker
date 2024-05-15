@@ -15,7 +15,7 @@ pipeline {
         IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
         NAME_FRONTEND = 'registers-frontend'
-        PHP_MYADMIN = 'register-phpmyadmin'
+        PHP_MYADMIN = 'registers-phpmyadmin'
 
     }
     stages {
