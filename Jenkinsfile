@@ -6,11 +6,15 @@ def COLOR_MAP = [
 pipeline {
     agent any
      environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "192.168.225.102"
+        NEXUS_PORT = "8081"
         DOCKER_CREDENTIALS_ID = "nexus_login_credential"
         NEXUS_REPO_URL = "crelease.webapp.local:10141"
         IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
-        NAME_FRONTEND = 'registers-frontend'
+        NAME_FRONTEND = 'register-frontend'
 
     }
     stages {
