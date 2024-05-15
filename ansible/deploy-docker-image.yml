@@ -34,6 +34,17 @@
         state: absent
         force_kill: yes
 
+    - name: Stop and remove existing frontend container
+      docker_container:
+        name: "{{ NAME_FRONTEND }}"
+        state: absent
+        force_kill: yes
+
+    - name: Remove all Docker images
+      shell: |
+        docker rmi $(docker images -q) || true
+      ignore_errors: yes
+
     - name: Run new backend container
       docker_container:
         name: "{{ NAME_BACKEND }}"
@@ -41,12 +52,6 @@
         state: started
         ports:
           - "8081:8081"
-
-    - name: Stop and remove existing frontend container
-      docker_container:
-        name: "{{ NAME_FRONTEND }}"
-        state: absent
-        force_kill: yes
 
     - name: Run new frontend container
       docker_container:

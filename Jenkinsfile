@@ -171,7 +171,7 @@ pipeline {
 	}
     post {
         always {
-            //cleanWs deleteDirs: true
+            cleanWs deleteDirs: true
             echo 'Slack Notifications.'
             slackSend channel: '#registers-webapp',
                 color: COLOR_MAP[currentBuild.currentResult],
