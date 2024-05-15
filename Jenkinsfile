@@ -14,7 +14,7 @@ pipeline {
         NEXUS_REPO_URL = "crelease.webapp.local:10141"
         IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
-        NAME_FRONTEND = 'register-frontend'
+        NAME_FRONTEND = 'registers-frontend'
 
     }
     stages {
