@@ -29,9 +29,10 @@ services:
     environment:
       - IMAGE_TAG=${IMAGE_TAG:-1.0.0}
       - NAME_FRONTEND=${NAME_FRONTEND}
+      
   phpmyadmin:
-    container_name: registers.phpmyadmin
-    image: registers.phpmyadmin
+    container_name: ${PHP_MYADMIN}
+    image: ${PHP_MYADMIN}:${IMAGE_TAG}
     restart: always
     environment:
       - PMA_HOST=192.168.225.111
