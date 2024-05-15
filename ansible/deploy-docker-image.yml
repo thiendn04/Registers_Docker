@@ -32,37 +32,41 @@
     #     docker rmi $(docker images -q) || true
     #   ignore_errors: yes
 
-    - name: Get running containers
-      docker_host_info:
-        containers: yes
-      register: docker_info
-
-    - name: Stop running containers
+    - name: Stop and remove existing backend container
       docker_container:
-        name: "{{ item }}"
-        state: stopped
-      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-      when: docker_info.containers | length > 0
-
-    - name: Remove stopped containers
-      docker_container:
-        name: "{{ item }}"
+        name: "{{ NAME_BACKEND }}"
         state: absent
-      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-      when: docker_info.containers | length > 0
+        force_kill: yes
 
-    - name: Get details of all images
-      docker_host_info:
-        images: yes
-        verbose_output: yes
-      register: image_info
+    - name: Check if backend image exists
+      command: docker images -q {{ IMAGE_BACKEND }}
+      register: backend_image_exists
+      failed_when: false
+      changed_when: false
 
-    - name: Remove all images
+    - name: Remove backend image
       docker_image:
-        name: "{{ item }}"
+        name: "{{ IMAGE_BACKEND }}"
         state: absent
-      loop: "{{ image_info.images | map(attribute='Id') | list }}"
-      when: image_info.images | length > 0
+      when: backend_image_exists.stdout != ""
+
+    - name: Stop and remove existing frontend container
+      docker_container:
+        name: "{{ NAME_FRONTEND }}"
+        state: absent
+        force_kill: yes
+
+    - name: Check if frontend image exists
+      command: docker images -q {{ IMAGE_FRONTEND }}
+      register: frontend_image_exists
+      failed_when: false
+      changed_when: false
+
+    - name: Remove frontend image
+      docker_image:
+        name: "{{ IMAGE_FRONTEND }}"
+        state: absent
+      when: frontend_image_exists.stdout != ""
 
     - name: Pull backend image from Nexus Repository
       docker_image:
