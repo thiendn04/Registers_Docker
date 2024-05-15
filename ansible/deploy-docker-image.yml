@@ -38,35 +38,20 @@
         state: absent
         force_kill: yes
 
-    - name: Check if backend image exists
-      command: docker images -q {{ IMAGE_BACKEND }}
-      register: backend_image_exists
-      failed_when: false
-      changed_when: false
-
-    - name: Remove backend image
-      docker_image:
-        name: "{{ IMAGE_BACKEND }}"
-        state: absent
-      when: backend_image_exists.stdout != ""
-
     - name: Stop and remove existing frontend container
       docker_container:
         name: "{{ NAME_FRONTEND }}"
         state: absent
         force_kill: yes
 
-    - name: Check if frontend image exists
-      command: docker images -q {{ IMAGE_FRONTEND }}
-      register: frontend_image_exists
-      failed_when: false
-      changed_when: false
+    - name: Get all images with repository registers-backend
+      command: docker images --format "{{ '{{.Repository}}:{{.Tag}}' }}" "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
+      register: images_to_remove
 
-    - name: Remove frontend image
-      docker_image:
-        name: "{{ IMAGE_FRONTEND }}"
-        state: absent
-      when: frontend_image_exists.stdout != ""
+    - name: Remove images with repository registers-backend
+      command: docker rmi "{{ item }}"
+      loop: "{{ images_to_remove.stdout_lines }}"
+      when: images_to_remove.stdout_lines is defined and images_to_remove.stdout_lines | length > 0
 
     - name: Pull backend image from Nexus Repository
       docker_image:
