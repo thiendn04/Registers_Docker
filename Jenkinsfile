@@ -6,18 +6,11 @@ def COLOR_MAP = [
 pipeline {
     agent any
      environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.225.102"
-        NEXUS_PORT = "8081"
-        DOCKER_HUB = "webapp"
         DOCKER_CREDENTIALS_ID = "nexus_login_credential"
         NEXUS_REPO_URL = "crelease.webapp.local:10141"
-        //DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
-        NAME_FRONTEND = 'register-frontend'
-        //DOCKER_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
+        NAME_FRONTEND = 'registers-frontend'
 
     }
     stages {
@@ -153,11 +146,10 @@ pipeline {
                                 USER: "${NEXUS_USER}",
                                 PASS: "${NEXUS_PASS}",
                                 IMAGE_TAG: "${IMAGE_TAG}",
-                                NEXUS_URL: "${NEXUS_URL}",
                                 NEXUS_PORT: "${NEXUS_PORT}",
                                 NAME_BACKEND: "${NAME_BACKEND}",
                                 NAME_FRONTEND: "${NAME_FRONTEND}",
-                                REGISTRY: "${NEXUS_REPO_URL}"
+                                NEXUS_URL: "${NEXUS_REPO_URL}"
                                 // IMAGENAME: "${imageName}",
                                 // TAG: "${TAG}",
                                 // CONTAINER_NAME: "Registers",

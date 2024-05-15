@@ -11,7 +11,7 @@
 
     - name: Log in to Nexus Docker registry
       docker_login:
-        registry_url: "{{ REGISTRY }}"
+        registry_url: "{{ NEXUS_URL }}"
         username: "{{ USER }}"
         password: "{{ PASS }}"
 
