@@ -42,21 +42,27 @@
         name: "{{ item }}"
         state: stopped
       loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-    - name: Remove Stoped docker containers
-      shell: |
-        docker rm $(docker ps -a -q);
-      when: docker_info.containers != 0
+      when: docker_info.containers | length > 0
+
+    - name: Remove stopped containers
+      docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
+      when: docker_info.containers | length > 0
 
     - name: Get details of all images
       docker_host_info:
         images: yes
         verbose_output: yes
       register: image_info
+
     - name: Remove all images
       docker_image:
         name: "{{ item }}"
         state: absent
       loop: "{{ image_info.images | map(attribute='Id') | list }}"
+      when: image_info.images | length > 0
 
     - name: Pull backend image from Nexus Repository
       docker_image:
