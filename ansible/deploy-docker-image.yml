@@ -6,7 +6,7 @@
 
     - name: Add host domain crelease.webapp.local  về IP server Nexus
       lineinfile:
-        path: /etc/hosts   # Đường dẫn tới tệp inventory
+        path: /etc/hosts   # Đường dẫn tới file host
         line: "192.168.225.102 crelease.webapp.local"
 
     - name: Log in to Nexus Docker registry
@@ -14,19 +14,6 @@
         registry_url: "{{ NEXUS_URL }}"
         username: "{{ USER }}"
         password: "{{ PASS }}"
-
-
-    - name: Pull backend image from Nexus Repository
-      docker_image:
-        name: "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
-        tag: "{{ IMAGE_TAG }}"
-        source: pull
-
-    - name: Pull frontend image from Nexus Repository
-      docker_image:
-        name: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}"
-        tag: "{{ IMAGE_TAG }}"
-        source: pull
 
     - name: Stop and remove existing backend container
       docker_container:
@@ -44,6 +31,18 @@
       shell: |
         docker rmi $(docker images -q) || true
       ignore_errors: yes
+
+    - name: Pull backend image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_BACKEND }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
+
+    - name: Pull frontend image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
 
     - name: Run new backend container
       docker_container:
