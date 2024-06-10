@@ -14,7 +14,17 @@ services:
     ports:
       - '3307:3306'
 
+  phpmyadmin:
+    container_name: registers-phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3307
+      - MYSQL_ROOT_PASSWORD=Khoi@8888
+    ports:
+      - 80:80
 volumes:
     mysql_data:
 
-#sudo docker compose -p register-mysql up -d
+#sudo docker compose -p up -d

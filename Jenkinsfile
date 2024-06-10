@@ -15,7 +15,8 @@ pipeline {
         IMAGE_TAG = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NAME_BACKEND = 'registers-backend'
         NAME_FRONTEND = 'registers-frontend'
-        PHP_MYADMIN = 'registers-phpmyadmin'
+        NAME_DATABASE = 'registers-database'
+        NAME_PHPMYADMIN = 'registers-phpmyadmin'
 
     }
     stages {
@@ -73,9 +74,13 @@ pipeline {
                     sh "docker tag ${NAME_FRONTEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
                     sh "docker push ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
 
-                    // Tag and push Frontend image
-                    sh "docker tag ${PHP_MYADMIN}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${PHP_MYADMIN}:${IMAGE_TAG}"
-                    sh "docker push ${NEXUS_REPO_URL}/${PHP_MYADMIN}:${IMAGE_TAG}"
+                    // Tag and push Database image
+                    sh "docker tag ${NAME_DATABASE}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
+                    sh "docker push ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
+
+                    // Tag and push Phpmyadmin image
+                    sh "docker tag ${NAME_PHPMYADMIN}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
+                    sh "docker push ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
                 }
             }
         }

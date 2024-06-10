@@ -74,11 +74,11 @@
         tag: "{{ IMAGE_TAG }}"
         source: pull
 
-    - name: Pull phpMyAdmin image from Nexus Repository
-      docker_image:
-        name: "{{ NEXUS_URL }}/{{ PHP_MYADMIN }}"
-        tag: "{{ IMAGE_TAG }}"
-        source: pull    
+    # - name: Pull phpMyAdmin image from Nexus Repository
+    #   docker_image:
+    #     name: "{{ NEXUS_URL }}/{{ PHP_MYADMIN }}"
+    #     tag: "{{ IMAGE_TAG }}"
+    #     source: pull    
 
     - name: Run new backend container
       docker_container:
@@ -96,10 +96,10 @@
         ports:
           - "80:80"
 
-    - name: Run new phpMyAdmin container
-      docker_container:
-        name: "{{ NAME_FRONTEND }}"
-        image: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}:{{ IMAGE_TAG }}"
-        state: started
-        ports:
-          - "80:80"
+    # - name: Run new phpMyAdmin container
+    #   docker_container:
+    #     name: "{{ NAME_FRONTEND }}"
+    #     image: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}:{{ IMAGE_TAG }}"
+    #     state: started
+    #     ports:
+    #       - "80:80"
