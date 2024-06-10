@@ -15,23 +15,6 @@
         username: "{{ USER }}"
         password: "{{ PASS }}"
 
-    # - name: Stop and remove existing backend container
-    #   docker_container:
-    #     name: "{{ NAME_BACKEND }}"
-    #     state: absent
-    #     force_kill: yes
-
-    # - name: Stop and remove existing frontend container
-    #   docker_container:
-    #     name: "{{ NAME_FRONTEND }}"
-    #     state: absent
-    #     force_kill: yes
-
-    # - name: Remove all Docker images
-    #   shell: |
-    #     docker rmi $(docker images -q) || true
-    #   ignore_errors: yes
-
     - name: Stop and remove existing backend container
       docker_container:
         name: "{{ NAME_BACKEND }}"
