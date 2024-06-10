@@ -57,6 +57,7 @@ services:
         IMAGE_TAG: ${IMAGE_TAG:-latest}
     container_name: ${NAME_PHPMYADMIN}
     restart: always
+    image: ${NAME_PHPMYADMIN}:${IMAGE_TAG}
     environment:
       - PMA_HOST=database
       - PMA_PORT=3306
