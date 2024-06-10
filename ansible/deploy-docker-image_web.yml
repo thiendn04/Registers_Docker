@@ -4,11 +4,6 @@
   become_method: sudo
   tasks:
 
-    - name: Add host domain crelease.webapp.local  về IP server Nexus
-      lineinfile:
-        path: /etc/hosts   # Đường dẫn tới file host
-        line: "192.168.225.102 crelease.webapp.local"
-
     - name: Log in to Nexus Docker registry
       docker_login:
         registry_url: "{{ NEXUS_URL }}"

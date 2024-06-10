@@ -1,0 +1,39 @@
+- name: Ansible Playbook to Install and Setup Apache on Ubuntu
+  hosts: dbsrvgrp
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: Log in to Nexus Docker registry
+      docker_login:
+        registry_url: "{{ NEXUS_URL }}"
+        username: "{{ USER }}"
+        password: "{{ PASS }}"
+
+    - name: Pull Database image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_DATABASE }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
+
+    - name: Pull Phpmyadmin image from Nexus Repository
+      docker_image:
+        name: "{{ NEXUS_URL }}/{{ NAME_PHPMYADMIN }}"
+        tag: "{{ IMAGE_TAG }}"
+        source: pull
+
+    - name: Run new Database container
+      docker_container:
+        name: "{{ NAME_DATABASE }}"
+        image: "{{ NEXUS_URL }}/{{ NAME_DATABASE }}:{{ IMAGE_TAG }}"
+        state: started
+        ports:
+          - "3307:3306"
+
+    - name: Run new PhpMyadmin container
+      docker_container:
+        name: "{{ NAME_PHPMYADMIN }}"
+        image: "{{ NEXUS_URL }}/{{ NAME_PHPMYADMIN }}:{{ IMAGE_TAG }}"
+        state: started
+        ports:
+          - "80:80"

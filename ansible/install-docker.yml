@@ -1,5 +1,5 @@
 - name: Ansible Playbook to Install and Setup Docker on Ubuntu
-  hosts: stagingsrvgrp
+  hosts: stagingsrvgrp, dbsrvgrp
   become: yes
   become_method: sudo
   vars:

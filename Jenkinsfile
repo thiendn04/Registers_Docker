@@ -163,7 +163,8 @@ pipeline {
                                 NEXUS_PORT: "${NEXUS_PORT}",
                                 NAME_BACKEND: "${NAME_BACKEND}",
                                 NAME_FRONTEND: "${NAME_FRONTEND}",
-                                PHP_MYADMIN : "${PHP_MYADMIN}",
+                                NAME_DATABASE: "${NAME_DATABASE}",
+                                NAME_PHPMYADMIN: "${NAME_PHPMYADMIN}",
                                 NEXUS_URL: "${NEXUS_REPO_URL}"
                                 // IMAGENAME: "${imageName}",
                                 // TAG: "${TAG}",

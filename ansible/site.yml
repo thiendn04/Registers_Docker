@@ -1,4 +1,5 @@
 
 #With Nginx
-# - import_playbook: install-docker.yml
-- import_playbook: deploy-docker-image.yml
+- import_playbook: install-docker.yml
+- import_playbook: deploy-docker-image_web.yml
+- import_playbook: deploy-docker-image_db.yml
