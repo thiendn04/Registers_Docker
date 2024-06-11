@@ -96,6 +96,12 @@
           {
               "insecure-registries" : ["crelease.webapp.local:10141"]
           }
+          
+    - name: Thêm file host /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "192.168.225.102   crelease.webapp.local"
+        state: present
 
     - name: Khởi động lại dịch vụ Docker
       service:
