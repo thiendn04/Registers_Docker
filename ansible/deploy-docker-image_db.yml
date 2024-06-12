@@ -27,6 +27,7 @@
         name: "{{ NAME_DATABASE }}"
         image: "{{ NEXUS_URL }}/{{ NAME_DATABASE }}:{{ IMAGE_TAG }}"
         state: started
+        restart_policy: always
         ports:
           - "3307:3306"
 
@@ -35,5 +36,6 @@
         name: "{{ NAME_PHPMYADMIN }}"
         image: "{{ NEXUS_URL }}/{{ NAME_PHPMYADMIN }}:{{ IMAGE_TAG }}"
         state: started
+        restart_policy: always
         ports:
           - "80:80"

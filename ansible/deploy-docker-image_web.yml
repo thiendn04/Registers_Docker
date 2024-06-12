@@ -63,6 +63,7 @@
         name: "{{ NAME_BACKEND }}"
         image: "{{ NEXUS_URL }}/{{ NAME_BACKEND }}:{{ IMAGE_TAG }}"
         state: started
+        restart_policy: always
         ports:
           - "8081:8081"
 
@@ -71,6 +72,7 @@
         name: "{{ NAME_FRONTEND }}"
         image: "{{ NEXUS_URL }}/{{ NAME_FRONTEND }}:{{ IMAGE_TAG }}"
         state: started
+        restart_policy: always
         ports:
           - "80:80"
 
