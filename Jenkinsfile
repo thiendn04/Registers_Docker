@@ -60,27 +60,27 @@ pipeline {
                 script {
                     // Login to Docker registry
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $NEXUS_REPO_URL"
+                        sh "echo $DOCKER_PASSWORD | sudo docker login -u $DOCKER_USERNAME --password-stdin $NEXUS_REPO_URL"
                     }
                     
                     // Build images using Docker Compose
-                    sh 'docker compose build --parallel'
+                    sh 'sudo docker compose build --parallel'
                     
                     // Tag and push Backend image
-                    sh "docker tag ${NAME_BACKEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
-                    sh "docker push ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
+                    sh "sudo docker tag ${NAME_BACKEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
+                    sh "sudo docker push ${NEXUS_REPO_URL}/${NAME_BACKEND}:${IMAGE_TAG}"
                     
                     // Tag and push Frontend image
-                    sh "docker tag ${NAME_FRONTEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
-                    sh "docker push ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
+                    sh "sudo docker tag ${NAME_FRONTEND}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
+                    sh "sudo docker push ${NEXUS_REPO_URL}/${NAME_FRONTEND}:${IMAGE_TAG}"
 
                     // Tag and push Database image
-                    sh "docker tag ${NAME_DATABASE}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
-                    sh "docker push ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
+                    sh "sudo docker tag ${NAME_DATABASE}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
+                    sh "sudo docker push ${NEXUS_REPO_URL}/${NAME_DATABASE}:${IMAGE_TAG}"
 
                     // Tag and push Phpmyadmin image
-                    sh "docker tag ${NAME_PHPMYADMIN}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
-                    sh "docker push ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
+                    sh "sudo docker tag ${NAME_PHPMYADMIN}:${IMAGE_TAG} ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
+                    sh "sudo docker push ${NEXUS_REPO_URL}/${NAME_PHPMYADMIN}:${IMAGE_TAG}"
                 }
             }
         }
