@@ -60,7 +60,7 @@ pipeline {
                 script {
                     // Login to Docker registry
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin http://$NEXUS_REPO_URL"
+                        sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin http://\$NEXUS_REPO_URL"
                     }
                     
                     // Build images using Docker Compose
