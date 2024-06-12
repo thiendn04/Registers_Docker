@@ -10,7 +10,8 @@ COPY . .
 
 EXPOSE 8081
 
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
 
+CMD [ "node", "server.js" ]
 #docker build --tag node-docker .
 #docker run -p 8081:8081 -d node-docker
