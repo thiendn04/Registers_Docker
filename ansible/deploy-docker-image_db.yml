@@ -8,6 +8,9 @@
       file:
         path: "/var/lib/mysql_data"
         state: directory  
+        owner: mysql
+        group: mysql
+        mode: '0755'        
 
     - name: Log in to Nexus Docker registry
       docker_login:
