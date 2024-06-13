@@ -10,7 +10,7 @@
         state: directory
         mode: '0755'
         owner: devops
-        group: devops 
+        group: docker 
 
     - name: Log in to Nexus Docker registry
       docker_login:
