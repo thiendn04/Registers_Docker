@@ -4,6 +4,12 @@
   become_method: sudo
   tasks:
 
+    - name: Tạo thư mục mysql_data
+      file:
+        path: /var/lib/mysql_data
+        state: directory
+        mode: '0755'
+        
     - name: Log in to Nexus Docker registry
       docker_login:
         registry_url: "{{ NEXUS_URL }}"
