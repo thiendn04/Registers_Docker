@@ -9,8 +9,8 @@
         path: /var/lib/mysql_data
         state: directory
         mode: '0755'
-        owner: "{{ USER }}"
-        group: "{{ PASS }}" 
+        owner: devops
+        group: devops 
 
     - name: Log in to Nexus Docker registry
       docker_login:
