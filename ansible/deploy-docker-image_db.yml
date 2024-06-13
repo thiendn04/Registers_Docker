@@ -4,7 +4,7 @@
   become_method: sudo
   tasks:
 
-    - name: Create MySQL data directory
+    - name: Create MySQL data directory.
       file:
         path: /var/lib/mysql_data
         state: directory
