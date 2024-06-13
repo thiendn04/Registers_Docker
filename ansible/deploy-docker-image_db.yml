@@ -4,10 +4,10 @@
   become_method: sudo
   tasks:
 
-    # - name: Creat directory mysql_data
-    #   file:
-    #     path: "/var/lib/mysql_data"
-    #     state: directory  
+    - name: Creat directory mysql_data
+      file:
+        path: "/var/lib/mysql_data"
+        state: directory  
 
     - name: Log in to Nexus Docker registry
       docker_login:
