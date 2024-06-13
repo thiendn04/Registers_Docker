@@ -51,8 +51,10 @@ services:
       - MYSQL_ROOT_PASSWORD=Khoi@8888
       - IMAGE_TAG=${IMAGE_TAG:-8.0}
       - NAME_DATABASE=${NAME_DATABASE}
+    # volumes:
+    #   - /var/lib/mysql_data:/var/lib/mysql
     volumes:
-      - /var/lib/mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql    
     ports:
       - '3307:3306'
 
@@ -73,4 +75,12 @@ services:
       - NAME_PHPMYADMIN=${NAME_PHPMYADMIN}
     ports:
       - 80:80
+
+volumes:
+  mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /var/lib/mysql_data
+      o: bind
 # docker compose up -d
