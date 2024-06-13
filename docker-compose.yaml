@@ -52,7 +52,7 @@ services:
       - IMAGE_TAG=${IMAGE_TAG:-8.0}
       - NAME_DATABASE=${NAME_DATABASE}
     volumes:
-      - /var/lib/mysql_data:/var/lib/mysql   
+      - /opt/mysql_data:/var/lib/mysql   
     ports:
       - '3307:3306'
 
