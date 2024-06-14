@@ -52,7 +52,9 @@ services:
       - IMAGE_TAG=${IMAGE_TAG:-8.0}
       - NAME_DATABASE=${NAME_DATABASE}
     volumes:
-      - ${MYSQL_DATA_PATH}:/var/lib/mysql
+      - type: bind
+        source: ${MYSQL_DATA_PATH}
+        target: /var/lib/mysql
     ports:
       - '3307:3306'
 
