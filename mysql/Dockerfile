@@ -1,5 +1,5 @@
 # Use the official MySQL image as a base
-FROM mysql:8.0-alpine
+FROM mysql:8.0
 
 # Set environment variables
 ENV MYSQL_DATABASE=signup
