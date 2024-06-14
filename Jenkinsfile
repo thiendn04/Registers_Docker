@@ -17,6 +17,7 @@ pipeline {
         NAME_FRONTEND = 'registers-frontend'
         NAME_DATABASE = 'registers-database'
         NAME_PHPMYADMIN = 'registers-phpmyadmin'
+        MYSQL_DATA_PATH = '/var/lib/mysql_data'
 
     }
     stages {

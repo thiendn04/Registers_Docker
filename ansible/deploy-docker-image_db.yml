@@ -6,7 +6,7 @@
 
     - name: Create MySQL data directory.
       file:
-        path: /var/lib/registers_data
+        path: /var/lib/mysql_data
         state: directory
         mode: '0755'
         owner: '999'
