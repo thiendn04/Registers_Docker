@@ -4,13 +4,13 @@
   become_method: sudo
   tasks:
 
-    # - name: Create MySQL data directory.
-    #   file:
-    #     path: /var/lib/mysql_data
-    #     state: directory
-    #     mode: '0755'
-    #     owner: '1000'
-    #     group: '1000' 
+    - name: Create MySQL data directory.
+      file:
+        path: /var/lib/mysql_data
+        state: directory
+        mode: '0755'
+        owner: '1000'
+        group: '1000' 
 
     - name: Log in to Nexus Docker registry
       docker_login:
@@ -38,6 +38,8 @@
         restart_policy: always
         ports:
           - "3307:3306"
+        volumes:
+          - /var/lib/mysql_data:/var/lib/mysql          
 
     - name: Run new PhpMyadmin container
       docker_container:
