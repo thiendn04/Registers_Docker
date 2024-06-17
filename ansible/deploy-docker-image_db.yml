@@ -70,4 +70,4 @@
       command: docker exec {{ NAME_PHPMYADMIN }} mv /var/www/html/config.sample.inc.php /var/www/html/config.inc.php
 
     - name: Update config.inc.php to use correct database host
-      command: docker exec {{ NAME_PHPMYADMIN }} sed -i "s/\$cfg\['Servers'\]\[\$i\]\['host'\] = 'localhost'/\$cfg\['Servers'\]\[\$i\]\['host'\] = 'database'/" /var/www/html/config.inc.php          
+      command: docker exec {{ NAME_PHPMYADMIN }} sed -i "s/\$cfg\['Servers'\]\[\$i\]\['host'\] = 'localhost'/\$cfg\['Servers'\]\[\$i\]\['host'\] = '{{ NAME_DATABASE }}'/" /var/www/html/config.inc.php          
