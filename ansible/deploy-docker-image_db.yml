@@ -65,3 +65,9 @@
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
         networks:
           - name: webapp_network
+
+    - name: Copy config.sample.inc.php to config.inc.php inside PhpMyadmin container
+      command: docker exec {{ NAME_PHPMYADMIN }} cp /etc/phpmyadmin/config.sample.inc.php /etc/phpmyadmin/config.inc.php
+
+    - name: Update config.inc.php to use correct database host
+      command: docker exec {{ NAME_PHPMYADMIN }} sed -i "s/\$cfg\['Servers'\]\[\$i\]\['host'\] = 'localhost'/\$cfg\['Servers'\]\[\$i\]\['host'\] = 'database'/" /etc/phpmyadmin/config.inc.php          
