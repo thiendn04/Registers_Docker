@@ -39,7 +39,12 @@
         ports:
           - "3307:3306"
         volumes:
-          - /var/lib/mysql_data:/var/lib/mysql          
+          - /var/lib/mysql_data:/var/lib/mysql        
+        env:
+          MYSQL_DATABASE: "signup"
+          MYSQL_ROOT_PASSWORD: "Khoi@8888"
+        networks:
+          - webapp_network            
 
     - name: Run new PhpMyadmin container
       docker_container:
@@ -49,3 +54,13 @@
         restart_policy: always
         ports:
           - "80:80"
+        env:
+          PMA_HOST: "{{ NAME_DATABASE }}"
+          PMA_PORT: 3306
+          MYSQL_ROOT_PASSWORD: "Khoi@8888"
+        networks:
+          - webapp_network
+
+  networks:
+    webapp_network:
+      driver: bridge
