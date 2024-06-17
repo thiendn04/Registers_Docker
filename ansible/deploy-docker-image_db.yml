@@ -30,6 +30,11 @@
         tag: "{{ IMAGE_TAG }}"
         source: pull
 
+    - name: Create Docker network
+      docker_network:
+        name: webapp_network
+        driver: bridge
+
     - name: Run new Database container
       docker_container:
         name: "{{ NAME_DATABASE }}"
@@ -44,7 +49,7 @@
           MYSQL_DATABASE: "signup"
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
         networks:
-          - webapp_network            
+          - name: webapp_network          
 
     - name: Run new PhpMyadmin container
       docker_container:
@@ -59,8 +64,4 @@
           PMA_PORT: 3306
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
         networks:
-          - webapp_network
-
-  networks:
-    webapp_network:
-      driver: bridge
+          - name: webapp_network
