@@ -60,7 +60,7 @@
         ports:
           - "80:80"
         env:
-          PMA_HOST: "{{ NAME_DATABASE }}"
+          PMA_HOST: "database"
           PMA_PORT: 3306
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
         networks:
