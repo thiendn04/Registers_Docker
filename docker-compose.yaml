@@ -55,8 +55,8 @@ services:
       - /var/lib/mysql_data:/var/lib/mysql
     ports:
       - '3307:3306'
-    # networks:
-    #   - webapp_network
+    networks:
+      - webapp_network
 
   phpmyadmin:
     build:
@@ -75,11 +75,11 @@ services:
       - NAME_PHPMYADMIN=${NAME_PHPMYADMIN}
     ports:
       - 80:80
-    # networks:
-    #   - webapp_network
+    networks:
+      - webapp_network
 
-# networks:
-#   webapp_network:
-#     driver: bridge            
+networks:
+  webapp_network:
+    driver: bridge            
 
 # docker compose up -d

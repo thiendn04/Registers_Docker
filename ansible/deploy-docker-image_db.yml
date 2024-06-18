@@ -30,10 +30,10 @@
         tag: "{{ IMAGE_TAG }}"
         source: pull
 
-    # - name: Create Docker network
-    #   docker_network:
-    #     name: webapp_network
-    #     driver: bridge
+    - name: Create Docker network
+      docker_network:
+        name: webapp_network
+        driver: bridge
 
     - name: Run new Database container
       docker_container:
@@ -48,8 +48,8 @@
         env:
           MYSQL_DATABASE: "signup"
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
-        # networks:
-        #   - name: webapp_network          
+        networks:
+          - name: webapp_network          
 
     - name: Run new PhpMyadmin container
       docker_container:
@@ -63,8 +63,8 @@
           PMA_HOST: "{{ NAME_DATABASE }}"
           PMA_PORT: "3306"
           MYSQL_ROOT_PASSWORD: "Khoi@8888"
-        # networks:
-        #   - name: webapp_network
+        networks:
+          - name: webapp_network
 
     - name: Copy config.sample.inc.php to config.inc.php inside PhpMyadmin container
       command: docker exec {{ NAME_PHPMYADMIN }} mv /var/www/html/config.sample.inc.php /var/www/html/config.inc.php
